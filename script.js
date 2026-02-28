@@ -39,20 +39,27 @@ function playRound(humanChoice, computerChoice){
 }
 
 function playGame(){
-    let humanChoice = getHumanChoice();
-    let computerChoice = getComputerChoice(3);
-    playRound(humanChoice,computerChoice);
+    humanScore = 0;
+    compScore = 0;
+    while (humanScore < 5 && compScore < 5) {
+        let humanChoice = getHumanChoice();
+        
+        if (humanChoice === null) {
+            alert("Game cancelled.");
+            return;
+        }
+
+        let computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+        
+        console.log(`Score: Human ${humanScore} - Computer ${compScore}`);
+    }
+
+    if (humanScore >= 5) {
+        console.log(`You won! Human Won! .. final score: Human: ${humanScore} - Computer: ${compScore}`);
+    } else if (compScore >= 5) {
+        console.log(`You lost! computer Won! .. final score: Human: ${humanScore} - Computer: ${compScore}`);
+    }
 }
 
-while(humanScore < 5 && compScore < 5){
-    playGame();
-}
-
-switch(true){
-    case (humanScore === 5):
-        console.log(`You Won, Computer lost! \nFinal score: \nHuman: ${humanScore} - Computer: ${computerScore}`), alert("You Won, Computer Lost!");
-        break;
-    case (compScore === 5):
-        console.log(`You Lost! Computer Won! \nFinal score: \nHuman: ${humanScore} - Computer: ${computerScore}`), alert("You Lost! Computer Won!");
-        break;
-}
+setTimeout(playGame, 100);
